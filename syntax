@@ -1,0 +1,55 @@
+@include [
+    "@network",
+    "include_file",
+    "folder/file",
+    "/absolute/path/file"
+]
+
+@memory {
+    //name (type) = value;
+    //Examples:
+    number (i32) = 0;
+    optvar (?u8) = 0;
+    nullvar (?u8) = null; //empty optional
+}
+
+@custom {
+    CustomEvent {
+        custom_var (i16) = 0;
+        another_var (i16) = 0;
+    }
+}
+
+//ConsoleInput has vars { line (string) }
+ConsoleInput {
+    //This calls "CustomEvent"
+    #CustomEvent <- 3, 2;
+
+    line (string) <- ConsoleInput;
+
+    //modify line in some way lul
+
+    ConsoleInput <- line;
+
+    ~ConsoleInput
+
+    #print <- "hello";
+
+    if true {
+        #print <- "yes";
+    }
+
+    if false {
+        ~~ //returns immediately (does not mean cancel event tho)
+    }
+
+    var (u8) = @optvar or 0;
+
+    if exists nullvar {
+        something (u8) = @nullvar expect;
+    } else {
+        #print <- "nothing ever existed";
+        #print <- "today we learned there is no god";
+        #print <- "there is only #{}@<-";
+    }
+}
